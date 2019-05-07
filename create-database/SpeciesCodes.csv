@@ -1,0 +1,33 @@
+﻿id,species_code,name_scientific,name_common,call_frequency,urban_category
+,MACA,Macrotus californicus,California leaf-nosed bat,50,Urban Adapter
+,MOME,Mormoops megalophylla,Ghost-faced bat,50,Urban Adapter
+,MYCA,Myotis californicus,California myotis,50,Urban Avoider
+,MYYU,Myotis yumanensis,Yuma myotis,50,Urban Adapter
+,CHME,Choeronycteris mexicana,Mexican long-tongued bat,45,Urban Adapter
+,PAHE,Parastrellus hesperus,Canyon bat,45,Urban Avoider
+,LABL,Lasiurus blossevillii,Western red bat,40,Urban Adapter
+,LEYE,Leptonycteris yerbabuenae,Lesser long-nosed bat,40,Urban Avoider
+,MYAR,Myotis auriculus,Southwestern myotis,40,Urban Adapter
+,MYCI,Myotis ciliolabrum,Western small-footed myotis,40,Urban Adapter
+,MYLU,Myotis lucifugus,Little brown bat,40,Urban Adapter
+,MYOC,Myotis occultus,Arizona myotis,40,Urban Adapter
+,MYVE,Myotis velifer,Cave myotis,40,Urban Avoider
+,MYVO,Myotis volans,Long-legged myotis,40,Urban Adapter
+,MYEV,Myotis evotis,Long-eared myotis,35,Urban Avoider
+,ANPA,Antrozous pallidus,Pallid bat,30,Urban Adapter
+,EPFU,Eptesicus fuscus,Big brown bat,30,Urban Exploiter
+,LAXA,Lasiurus xanthinus,Western yellow bat,30,Urban Adapter
+,COTO,Corynorhinus townsendii,Townsend's big-eared bat,25,Urban Adapter
+,LANO,Lasionycteris noctivagans,Silver-haired bat,25,Urban Adapter
+,MYTH,Myotis thysanodes,Fringed myotis,25,Urban Avoider
+,TABR,Tadarida brasiliensis,Mexican free-tailed bat,25,Urban Exploiter
+,LACI,Lasiurus cinereus,Hoary bat,20,Urban Adapter
+,NYSP,Nyctinomops spp.,Big/Pocketed free-tailed bat,20,Urban Exploiter
+,EUMA,Euderma maculatum,Spotted bat,10,Urban Adapter
+,EUPE,Eumops perotis,Western mastiff bat,10,Urban Exploiter
+,EUUN,Eumops underwoodi,Greater mastiff bat,10,Urban Exploiter
+,IDPH,Idionycteris phyllotis,Allen's lappet-browed bat,10,Urban Adapter
+,NOBA,No bat,,,
+,NOID,No identification,,,
+,APPH,Approach-phase call,,,
+,TWBA,Two bats,,,
