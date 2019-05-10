@@ -94,7 +94,8 @@ CREATE TABLE urban_chiroptera.taxa
   name_scientific TEXT UNIQUE,
   name_common TEXT UNIQUE,
   call_frequency INTEGER,
-  urban_category TEXT
+  urban_category TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 )
 WITH (
   OIDS=FALSE
@@ -202,6 +203,7 @@ CREATE TABLE urban_chiroptera.surveys
   version NUMERIC,
   autoid_quality NUMERIC,
   max_pulses INTEGER,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   FOREIGN KEY (surveyor) REFERENCES urban_chiroptera.surveyors (id),
   FOREIGN KEY (site_id) REFERENCES urban_chiroptera.sites (id),
   UNIQUE(sound_filename, surveyor)
@@ -214,8 +216,6 @@ WITH (
 dbExecute(pg,"COMMENT ON COLUMN urban_chiroptera.surveys.high_freq_bat IS 'sonobat output: HiF: high frequency bat';")
 dbExecute(pg,"COMMENT ON COLUMN urban_chiroptera.surveys.low_freq_bat IS 'sonobat output: LoF: low frequency bat';")
 dbExecute(pg,"COMMENT ON COLUMN urban_chiroptera.surveys.call_quality IS 'sonobat output: Call Quality: quality of call (0=poor, 1=good, 2=voucher call/best quality';")
-# dbExecute(pg,"COMMENT ON COLUMN urban_chiroptera.surveys.manual_id IS 'sonobat output: Species Manual ID: manual species ID';")
-# dbExecute(pg,"COMMENT ON COLUMN urban_chiroptera.surveys.auto_id IS 'sonobat output: SppAccp: automatic species ID';")
 dbExecute(pg,"COMMENT ON COLUMN urban_chiroptera.surveys.num_pulses_autoid IS 'sonobat output: #Maj: number of call pulses auto identified as species';")
 dbExecute(pg,"COMMENT ON COLUMN urban_chiroptera.surveys.num_pulses_detected IS 'sonobat output: #Accp: number of call pulses detected';")
 dbExecute(pg,"COMMENT ON COLUMN urban_chiroptera.surveys.most_likely_spp IS 'sonobat output: ~Spp: most likely species';")
@@ -280,6 +280,7 @@ CREATE TABLE urban_chiroptera.bat_observations
   survey_id INTEGER NOT NULL,
   sonobat_id_type INTEGER NOT NULL,
   taxa_id INTEGER NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   FOREIGN KEY (survey_id) REFERENCES urban_chiroptera.surveys (id),
   FOREIGN KEY (sonobat_id_type) REFERENCES urban_chiroptera.sonobat_id_types (id),
   FOREIGN KEY (taxa_id) REFERENCES urban_chiroptera.taxa (id),
