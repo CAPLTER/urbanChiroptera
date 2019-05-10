@@ -178,7 +178,7 @@ CREATE TABLE urban_chiroptera.surveys
   id SERIAL PRIMARY KEY,
   sonobat_filename TEXT,
   sound_filename TEXT,
-  surveyor INTEGER,
+  surveyor_id INTEGER,
   site_id INTEGER,
   high_freq_bat BOOLEAN,
   low_freq_bat BOOLEAN,
@@ -204,9 +204,9 @@ CREATE TABLE urban_chiroptera.surveys
   autoid_quality NUMERIC,
   max_pulses INTEGER,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  FOREIGN KEY (surveyor) REFERENCES urban_chiroptera.surveyors (id),
+  FOREIGN KEY (surveyor_id) REFERENCES urban_chiroptera.surveyors (id),
   FOREIGN KEY (site_id) REFERENCES urban_chiroptera.sites (id),
-  UNIQUE(sound_filename, surveyor)
+  UNIQUE(sound_filename, surveyor_id)
 )
 WITH (
   OIDS=FALSE
@@ -259,7 +259,6 @@ INSERT INTO urban_chiroptera.sonobat_id_types(
 ) VALUES 
 ('Species Manual ID', 'manual species ID'),
 ('SppAccp', 'automatic species ID'),
---('~Spp', 'most likely species'),
 ('1st', '1st choice species'),
 ('2nd', '2nd choice species'),
 ('3rd', '3rd choice species'),                
@@ -281,7 +280,7 @@ CREATE TABLE urban_chiroptera.bat_observations
   sonobat_id_type INTEGER NOT NULL,
   taxa_id INTEGER NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  FOREIGN KEY (survey_id) REFERENCES urban_chiroptera.surveys (id),
+  FOREIGN KEY (survey_id) REFERENCES urban_chiroptera.surveys (id) ON DELETE CASCADE,
   FOREIGN KEY (sonobat_id_type) REFERENCES urban_chiroptera.sonobat_id_types (id),
   FOREIGN KEY (taxa_id) REFERENCES urban_chiroptera.taxa (id),
   UNIQUE(survey_id, sonobat_id_type)
