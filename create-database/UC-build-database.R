@@ -9,11 +9,12 @@
 
 library(tidyverse)
 library(RPostgreSQL)
+library(lubridate)
 
 
 # database connection -----------------------------------------------------
 
-source('pg_local.R')
+source('pg_connect_template.R')
 pg <- pg_local
 
 
