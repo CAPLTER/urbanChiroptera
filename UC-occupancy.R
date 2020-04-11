@@ -10,6 +10,16 @@
 # monitoring nights corresponding to occasions 1, 4, and 5 did not occur so
 # values corresponding to those columns are NA.
 
+# regarding NAs per above:
+# I talked with Jesse and we came to the conclusion that the 'NA' should only be
+# used if the monitor was not at the site recording or had been malfunctioning
+# in some way. So, if the monitor was on and working, then there was a survey
+# even if no bats were detected. To the best of my knowledge, the monitors at
+# these sites were on, with enough battery, and fully functioning. We had very
+# few detections at site 1-04 every season, so it makes sense that there is very
+# very low bat activity at that site in the winter. Therefore, the occasions
+# with no recordings should also be a '0' for no bat detections.
+
 
 # libraries ---------------------------------------------------------------
 
@@ -73,5 +83,7 @@ occupancy %>%
     )
   ) %>% 
   pivot_wider(id_cols = -c(monitoring_night), names_from = occasion, values_from = count) %>% 
-  arrange(species_code, season, site_id) # %>%
-# write_csv('~/Desktop/occupancy.csv')
+  # convert NAs to 0 see note in README
+  mutate_at(vars(contains("occasion")), .funs = function(x) { x = case_when(is.na(x) ~ 0, TRUE ~ x) }) %>%
+  arrange(species_code, season, site_id) %>%
+  write_csv('~/Desktop/occupancy.csv')
