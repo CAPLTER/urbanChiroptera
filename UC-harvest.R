@@ -89,12 +89,12 @@ library(lubridate)
 
 left_join(
   tibble(
-    dateBlock = seq(ymd('2019-05-15'),ymd('2019-05-18'), by = '1 days')
+    dateBlock = seq(ymd('2019-08-05'),ymd('2019-08-09'), by = '1 days')
   ),
   currentData %>% 
     filter(
-      monitoring_night >= '2019-05-13' & monitoring_night <= '2019-05-18',
-      site_id == '1_03'
+      monitoring_night >= '2019-08-05' & monitoring_night <= '2019-08-09',
+      site_id == '2_01'
     ) %>% 
     group_by(
       site_id,

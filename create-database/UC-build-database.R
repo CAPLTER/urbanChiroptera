@@ -10,7 +10,7 @@
 library(tidyverse)
 library(RPostgreSQL)
 library(lubridate)
-
+setwd("~/Documents/localRepos/urbanChiroptera")
 
 # database connection -----------------------------------------------------
 

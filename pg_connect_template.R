@@ -1,3 +1,6 @@
+source('pg_connect_template.R')
+pg <- pg_local
+
 # host: login to postgres database on localhost ---------------------------
 pg_local <- dbConnect(dbDriver("PostgreSQL"),
                      user="jdwyer4",
@@ -15,10 +18,4 @@ setwd()
 
 # enter filename for output files -----------------------------------------
 
-sonobat_upload(sonobatFile = "5-09_S3Summer_Output.csv")
-
-# Winter Output Files Uploaded #
-# #
-
-# Spring Output Files Uploaded #
-# 1-03 #
+sonobat_upload(sonobatFile = "2-02_S1Winter_Output.csv")
