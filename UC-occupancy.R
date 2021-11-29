@@ -32,6 +32,7 @@ library(tidyverse)
 
 
 # query data --------------------------------------------------------------
+# 1 or 0 detections
 
 dbGetQuery(pg,'
 SELECT
@@ -87,3 +88,84 @@ occupancy %>%
   mutate_at(vars(contains("occasion")), .funs = function(x) { x = case_when(is.na(x) ~ 0, TRUE ~ x) }) %>%
   arrange(species_code, season, site_id) %>%
   write_csv('~/Desktop/occupancy.csv')
+
+# query data --------------------------------------------------------------
+# all detections
+
+dbGetQuery(pg,'
+SELECT
+  sites.site_id,
+  sampling_dates.week,
+  sampling_dates.season,
+  sampling_dates.occasion,
+  sampling_dates.monitoring_night,
+  taxa.species_code,
+  observations.count
+FROM urban_chiroptera.sampling_dates
+LEFT JOIN (
+  SELECT DISTINCT
+  surveys.site_id,
+  surveys.monitoring_night
+  FROM urban_chiroptera.surveys 
+  WHERE surveys.monitoring_night IS NOT NULL
+) AS surveydata ON (surveydata.monitoring_night = sampling_dates.monitoring_night)
+JOIN urban_chiroptera.sites ON (sites.id = surveydata.site_id)
+CROSS JOIN urban_chiroptera.taxa
+LEFT JOIN (
+  SELECT
+    sites.site_id,
+    surveys.monitoring_night,
+    taxa.species_code,
+    count(*)
+  FROM urban_chiroptera.surveys
+  LEFT JOIN urban_chiroptera.bat_observations BO ON (surveys.id = BO.survey_id)
+  JOIN urban_chiroptera.sites ON (sites.id = surveys.site_id)
+  JOIN urban_chiroptera.taxa ON (taxa.id = BO.taxa_id)
+  WHERE
+    BO.sonobat_id_type = 1
+  GROUP BY 
+    sites.site_id,
+    surveys.monitoring_night,
+    taxa.species_code
+) AS observations ON (
+  observations.site_id = sites.site_id AND
+  observations.monitoring_night = sampling_dates.monitoring_night AND
+  observations.species_code = taxa.species_code
+);') -> occupancy
+
+occupancy %>% 
+  mutate(
+    count = count
+  ) %>% 
+  pivot_wider(id_cols = -c(monitoring_night), names_from = occasion, values_from = count) %>% 
+  # convert NAs to 0 see note in README
+  mutate_at(vars(contains("occasion")), .funs = function(x) { x = case_when(is.na(x) ~ 0, TRUE ~ x) }) %>%
+  arrange(species_code, season, site_id) %>%
+  write_csv('~/Desktop/occupancy_all.csv')
+
+# query data --------------------------------------------------------------
+#filter by time
+
+occupancy %>% 
+  mutate(
+    count = count
+  ) %>% 
+  pivot_wider(id_cols = -c(monitoring_night), names_from = occasion, values_from = count) %>% 
+  # convert NAs to 0 see note in README
+  mutate_at(vars(contains("occasion")), .funs = function(x) { x = case_when(is.na(x) ~ 0, TRUE ~ x) }) %>%
+  arrange(species_code, season, site_id) %>%
+  write_csv('~/Desktop/occupancy_independent.csv')
+
+# 15 min filter
+# read data from file, ensure UTC-7
+occupancy <- read_csv("~/Desktop/occupancy_independent.csv",
+                 locale = locale(tz = "America/Phoenix"))
+
+# collapse around a window
+occ <- as_tsibble(x = occupancy,
+                   key = NULL,
+                   index = "call_timestamp",
+                   regular = FALSE) %>%
+  fill_gaps(.full = TRUE) %>%
+  mutate(diff = difference(call_timestamp)) %>%
+  filter(diff > 15 | is.na(diff))
