@@ -14,7 +14,7 @@ library(tidyr)
 
 # database connection -----------------------------------------------------
 
-source('pg_connect_template.R')
+source('pg_connect_upload_template.R')
 pg <- pg_local
 
 currentData <- dbGetQuery(pg, "
