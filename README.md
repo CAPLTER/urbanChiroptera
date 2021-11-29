@@ -6,7 +6,9 @@ urbanChiroptera
 #### overview
 
 Code and documentation related to acoustic monitoring and analyses of
-bats in the greater Phoenix metropolitan area.
+bats in the greater Phoenix metropolitan area. Read more about this
+[project](https://www.mcdowellsonoran.org/2020/discovering-bats-at-the-mcdowell-sonoran-preserve)
+in the McDowell Sonoran Preserve.
 
 #### database schema
 
@@ -26,8 +28,7 @@ the sonobat file name.
 
 Upload a sonobat file with default arguments: J. Dwyer as the
 investigator who identified the bats, and extracting the site name from
-the sonobat file
-name.
+the sonobat file name.
 
 ``` r
 sonobat_upload(sonobatFile = "~/Dropbox/development/urbanChiroptera/1-03_S1Winter_Output.csv")
@@ -35,8 +36,7 @@ sonobat_upload(sonobatFile = "~/Dropbox/development/urbanChiroptera/1-03_S1Winte
 
 Upload a sonobat file with the surveyor argument denoting that someone
 other than J. Dwyer processed the data in the sonobat file. The site
-name is extracted from the sonobat file
-name.
+name is extracted from the sonobat file name.
 
 ``` r
 sonobat_upload(sonobatFile = "~/Dropbox/development/urbanChiroptera/1-03_S1Winter_Output.csv",
@@ -45,8 +45,7 @@ sonobat_upload(sonobatFile = "~/Dropbox/development/urbanChiroptera/1-03_S1Winte
 
 Upload a sonobat file with the surveyor argument denoting that someone
 other than J. Dwyer processed the data in the sonobat file, and
-explicitly identifying the study site
-name.
+explicitly identifying the study site name.
 
 ``` r
 sonobat_upload(sonobatFile = "~/Dropbox/development/urbanChiroptera/1-03_S1Winter_Output.csv",

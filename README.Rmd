@@ -8,7 +8,9 @@ output: github_document
 #### overview
 
 Code and documentation related to acoustic monitoring and analyses of bats in
-the greater Phoenix metropolitan area.
+the greater Phoenix metropolitan area. Read more about this
+[project](https://www.mcdowellsonoran.org/2020/discovering-bats-at-the-mcdowell-sonoran-preserve)
+in the McDowell Sonoran Preserve.
 
 
 #### database schema
