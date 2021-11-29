@@ -51,3 +51,4 @@ dbWriteTable(conn = pg,
              name = c('urban_chiroptera', 'sampling_dates'),
              value = sampling_dates,
              row.names = F)
+
