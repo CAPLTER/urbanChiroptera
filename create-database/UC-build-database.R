@@ -14,7 +14,7 @@ setwd("~/Documents/localRepos/urbanChiroptera")
 
 # database connection -----------------------------------------------------
 
-source('pg_connect_template.R')
+source('pg_connect_upload_template.R')
 pg <- pg_local
 
 
